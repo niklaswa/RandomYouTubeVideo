@@ -10,7 +10,7 @@ error_reporting(0);
 $YouTubeAPIKey          = '';    // Get one here: https://console.developers.google.com/apis/api/youtube/overview
 $ChannelID              = '';                   // YouTube Channel ID
 $DateOfFirstVideo   = '2000-01-01T00:00:00Z';                       // RFC 3339 formatted date-time value
-$FallbackVideoLink  = 'http://youtube.com/';                        // Fallback viedeo link (e.g. API down)
+$FallbackVideoLink  = 'http://youtube.com/';                        // Fallback video link (e.g. API down)
 // ***        *** //
 
 $publishedBeforeYear = rand(explode('-', $DateOfFirstVideo)[0],date('Y'));

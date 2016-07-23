@@ -7,10 +7,11 @@ error_reporting(0);
  */
 
 // *** CONFIG *** //
-$YouTubeAPIKey          = '';    // Get one here: https://console.developers.google.com/apis/api/youtube/overview
-$ChannelID              = '';                   // YouTube Channel ID
+$YouTubeAPIKey      = '';    // Get one here: https://console.developers.google.com/apis/api/youtube/overview
+$ChannelID          = '';                   // YouTube Channel ID
 $DateOfFirstVideo   = '2000-01-01T00:00:00Z';                       // RFC 3339 formatted date-time value
 $FallbackVideoLink  = 'http://youtube.com/';                        // Fallback video link (e.g. API down)
+$usecurl            = true;
 // ***        *** //
 
 $dateExploded = explode('-', $DateOfFirstVideo);
@@ -25,7 +26,20 @@ if($publishedBeforeYear == $dateExploded[0]) {
 }
 $publishedBefore = $publishedBeforeYear.'-'.$publishedBeforeMonth.'-'.$publishedBeforeDay;
 $url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId='.$ChannelID.'&maxResults=50&type=video&publishedAfter='.$DateOfFirstVideo.'&publishedBefore='.$publishedBefore.'T00:00:00Z&order=date&fields=etag%2Citems%2Fid&key='.$YouTubeAPIKey;
-$data = json_decode(file_get_contents($url), true);
+
+if($usecurl) {
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => $url,
+    ));
+    $response = curl_exec($curl);
+    curl_close($curl);
+} else {
+    $response = file_get_contents($url);
+}
+
+$data = json_decode($response, true);
 
 if(!$data) { // Api down?
     header("Location: ".$FallbackVideoLink);

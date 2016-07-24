@@ -30,8 +30,9 @@ if($publishedBeforeYear == $dateExploded[0]) {
         echo '<br>Randomized year is in the same year where the first video was published...
               <br>Searching from '.$dateExploded[1].'.'.$dateExplodedSecond[0].'.'.$publishedBeforeYear.' until 31.12.'.$publishedBeforeYear;
     }
-    $publishedBeforeMonth = str_pad(rand($dateExploded[1], 12), 2, '0', STR_PAD_LEFT);
-    $publishedBeforeDay = str_pad(rand(intval($dateExplodedSecond[0]), 31), 2, '0', STR_PAD_LEFT);
+    $publishedBeforeMonthNumber = rand($dateExploded[1], 12);
+    $publishedBeforeMonth = str_pad($publishedBeforeMonthNumber, 2, '0', STR_PAD_LEFT);
+    $publishedBeforeDay = str_pad(rand(intval($dateExplodedSecond[0]), cal_days_in_month(CAL_GREGORIAN, $publishedBeforeMonthNumber, intval($publishedBeforeYear))), 2, '0', STR_PAD_LEFT);
     if($debug) {
         echo '<br>Randomized Month: '.$publishedBeforeMonth.', randomized day: '.$publishedBeforeDay;
     }
@@ -40,8 +41,9 @@ if($publishedBeforeYear == $dateExploded[0]) {
         echo '<br>Randomized year is <b>not</b> in the same year where the first video was published...
               <br>Randomizing Month from 1 - 12 and day from 1 - 31...';
     }
-    $publishedBeforeMonth = str_pad(rand(1, 12), 2, '0', STR_PAD_LEFT);
-    $publishedBeforeDay = str_pad(rand(1, 31), 2, '0', STR_PAD_LEFT);
+    $publishedBeforeMonthNumber = rand(1, 12);
+    $publishedBeforeMonth = str_pad($publishedBeforeMonthNumber, 2, '0', STR_PAD_LEFT);
+    $publishedBeforeDay = str_pad(rand(intval($dateExplodedSecond[0]), cal_days_in_month(CAL_GREGORIAN, $publishedBeforeMonthNumber, intval($publishedBeforeYear))), 2, '0', STR_PAD_LEFT);
     if($debug) {
         echo '<br>Randomized Month: '.$publishedBeforeMonth.', randomized day: '.$publishedBeforeDay;
     }

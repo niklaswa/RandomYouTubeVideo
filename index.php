@@ -22,7 +22,7 @@ $dateExploded = explode('-', $DateOfFirstVideo);
 $dateExplodedSecond = explode('T', $dateExploded[2]);
 $publishedBeforeYear = rand($dateExploded[0],date('Y'));
 if($debug) {
-    echo 'First video was published before '.$dateExploded[0];
+    echo 'First video was published in '.$dateExploded[0];
     echo '<br>Randomized year is: '.$publishedBeforeYear;
 }
 if($publishedBeforeYear == $dateExploded[0]) {
